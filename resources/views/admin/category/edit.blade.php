@@ -18,6 +18,16 @@
                     </div>
                     <div class="x_content">
                         <br />
+                                {{-- Show validation errors --}}
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form method="POST" action="{{ route('categories.update',$category->id) }}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                 @csrf
                                 {{ method_field('put') }}

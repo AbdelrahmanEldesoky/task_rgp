@@ -48,10 +48,8 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
 
-        $validated = $request->validate([
-            'name' => 'required|array',
-            'name.*' => 'required|string|max:255',
-        ]);
+        $validated = $request->validated();
+
         \DB::beginTransaction();
         try {
             $category = Category::create([]);
@@ -96,6 +94,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, int $id)
     {
+        
         $category = Category::findOrFail($id);
 
         foreach ($request->name as $locale => $name) {

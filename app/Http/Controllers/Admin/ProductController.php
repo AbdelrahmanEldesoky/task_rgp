@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductTranslation;
@@ -49,17 +50,10 @@ class ProductController extends Controller
     // /**
     //  * Store a newly created resource in storage.
     //  */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         // Define the validation rules
-        $validated = $request->validate([
-            'name.*' => 'required|string|max:255',
-            'description.*' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $validated = $request->validated();
         // Create the product
         $product = new Product();
         $product->category_id = $request->category_id;
@@ -92,10 +86,7 @@ class ProductController extends Controller
     //  */
     public function show(string $id)
     {
-        $product = Product::findOrFail($id);
-        $languages = $this->languages;
-
-        return view('admin.product.index',compact('product'));
+        //
     }
 
     // /**
@@ -103,7 +94,7 @@ class ProductController extends Controller
     //  */
     public function edit(int $id)
     {
-       $product = Product::findOrFail($id)->with('media')->firstOrFail();
+       $product = Product::with('media')->findOrFail($id);
        $categories = Category::get();
         $languages = $this->languages;
 
@@ -113,16 +104,9 @@ class ProductController extends Controller
     // /**
     //  * Update the specified resource in storage.
     //  */
-    public function update(Request $request, int $id)
+    public function update(ProductRequest $request, int $id)
     {
-        $validated = $request->validate([
-            'name.*' => 'required|string|max:255',
-            'description.*' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $validated = $request->validated();
 
         $product = Product::findOrFail($id);
         $product->update([
@@ -161,24 +145,5 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    /**
-     * Generate product report based on date range.
-     */
-    public function generateReports(Request $request)
-    {
-        // Validate date range
-        // $request->validate([
-        //     'start_date' => 'required|date',
-        //     'end_date' => 'required|date|after_or_equal:start_date',
-        // ]);
-
-        // Fetch products within the specified date range
-        $products = Product::whereBetween('created_at', [$request->start_date, $request->end_date])->get();
-
-
-
-        // Return product report as JSON
-        return view('admin.product.report',compact('products'));
-    }
 
 }

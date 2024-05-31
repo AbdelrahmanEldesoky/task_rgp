@@ -18,7 +18,16 @@
                     </div>
                     <div class="x_content">
                         <br />
-
+                        {{-- Show validation errors --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                             <form method="POST" action="{{ route('categories.store') }}"enctype="multipart/form-data">
                                 @csrf
                                 @foreach($languages as $localeCode => $properties)
@@ -33,7 +42,7 @@
                                     <div class="panel-body" style="display: block;">
                                         <div class="form-group">
                                             <label for="title_{{ $localeCode }}">@lang('site.name') ({{ $properties['name'] }})</label>
-                                            <input id="title_{{ $localeCode }}" name="name[{{ $localeCode }}]" value="" required type="text" class="form-control">
+                                            <input id="title_{{ $localeCode }}" name="name[{{ $localeCode }}]" value=""  type="text" class="form-control">
                                         </div>
                                     </div>
                                 </section>
