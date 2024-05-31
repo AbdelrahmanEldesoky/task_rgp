@@ -43,4 +43,13 @@
     php artisan serve
     ```
 
+9. Admin Email:
+    ```sh
+    admin@admin.com
+    ```
+
+10. Admin passowrd:
+    ```sh
+    admin
+    ```
 # task_rgp
