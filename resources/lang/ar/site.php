@@ -6,7 +6,7 @@ return [
     'categories' => 'الاقسام',
     'products' => 'المنتاجات',
     'add_category' => 'اضافة قسم',
-    'add_product' => 'اضافة قسم',
+    'add_product' => 'اضافة منتج',
     'print' => 'طباعة تقرير',
     'search_for'  => 'بحث عن',
     'name' => 'الاسم',
