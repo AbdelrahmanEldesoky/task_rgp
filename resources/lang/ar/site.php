@@ -21,7 +21,7 @@ return [
     'delete_ask' => 'هل انت متاكد من حذف ',
     'no_image' => 'لا يوجد صورة متاحة',
     'description' => 'وصف',
-    'image' => 'وصرة',
+    'image' => 'صورة',
     'select_category' => 'اختار القسم',
     'task' => 'اختبار',
     'welcome' => 'مرحبا',
