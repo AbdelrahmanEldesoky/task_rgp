@@ -48,6 +48,7 @@
                                         <th class="column-title">@lang('site.price')</th>
                                         <th class="column-title">@lang('site.quantity')</th>
                                         <th class="column-title">@lang('site.Category')</th>
+                                        <th class="column-title">@lang('site.image')</th>
                                         <th class="column-title no-link last no-print"><span class="nobr">@lang('site.action')</span></th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,15 @@
                                         <td>{{ $product->price }}</td>
                                         <td>{{ $product->quantity }}</td>
                                         <td>{{ $product->category->name }}</td>
+                                        <td>
+                                        @if($product->media->isNotEmpty())
+                                            @foreach($product->media as $media)
+                                                <img src="{{ $media->original_url }}" style="width: 100px" alt="@lang('site.no_image')" class="img-fluid">
+                                            @endforeach
+                                        @else
+                                            <p>@lang('site.no_image')</p>
+                                        @endif
+                                    </td>
                                         <td class="no-print">
                                             <div class="row">
                                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-default"><i class="fa fa-edit"></i> @lang('site.edit')</a>
